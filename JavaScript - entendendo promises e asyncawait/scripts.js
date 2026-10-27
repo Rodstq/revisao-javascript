@@ -91,9 +91,14 @@ botaoPublicar.addEventListener("click", async(evento)=> {
 
     const tagsProjeto = Array.from(listaTags.querySelectorAll("p")).map((tag) => tag.textContent);
 
-    console.log(nomeDoProjeto);
-    console.log(descricaoDoProjeto);
-    console.log(tagsProjeto);
+    try {
+        const reusltado = await publicarProjeto(nomeDoProjeto, descricaoDoProjeto, tagsProjeto);
+        console.log(reusltado);
+        alert("Deu tudo certo!");
+    } catch (erro){
+        console.log("Deu errado: ", erro);
+        alert("Deu tudo errado!");
+    }
 })
 
 async function publicarProjeto(nomeDoProjeto, descricaoDoProjeto, tagsProjeto){
@@ -109,3 +114,11 @@ async function publicarProjeto(nomeDoProjeto, descricaoDoProjeto, tagsProjeto){
         }, 2000);
     })
 }
+
+const botaoDescartar = document.querySelector(".botao-descartar");
+
+botaoDescartar.addEventListener("click", (evento) => {
+    evento.preventDefault();
+
+    
+})
