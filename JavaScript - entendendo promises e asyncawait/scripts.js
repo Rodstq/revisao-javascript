@@ -21,7 +21,7 @@ function lerConteudoDoArquivo(arquivo){
 }
 
 const imagemPrincipal = document.querySelector(".main-imagem");
-const nomeDaImagem = document.querySelector(".container-imagem-name p");
+const nomeDaImagem = document.querySelector(".container-imagem-nome p");
 
 inputUpload.addEventListener("change", async (event) => {
     const arquivo = event.target.files[0];
@@ -120,5 +120,11 @@ const botaoDescartar = document.querySelector(".botao-descartar");
 botaoDescartar.addEventListener("click", (evento) => {
     evento.preventDefault();
 
-    
+    const formulario = document.querySelector("form");
+    formulario.reset();
+
+    imagemPrincipal.src = "./img/imagem1.png";
+    nomeDaImagem.textContent = "image_projeto.png";
+
+    listaTags.innerHTML = ""; 
 })
