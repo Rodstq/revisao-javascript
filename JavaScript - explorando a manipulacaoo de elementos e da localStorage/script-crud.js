@@ -6,6 +6,10 @@ const ulTarefas = document.querySelector('.app__section-task-list');
 
 const tarefas = JSON.parse(localStorage.getItem('tarefas')) || [];
 
+function atualizarTarefas(){
+    localStorage.setItem('tarefas', JSON.stringify(tarefas));
+}
+
 function criarElementoTarefa(tarefa){
     const li = document.createElement('li');
     li.classList.add('app__section-task-list-item');
@@ -23,12 +27,25 @@ function criarElementoTarefa(tarefa){
     paragrafo.classList.add('app__section-task-list-item-description');
     
     const botao = document.createElement('button');
-    const imagemBotao = document.createElement('img');
+    botao.classList.add('app_button-edit');
+
+    botao.onclick = () => {
+        debugger
+        const novaDecricao = prompt("Qual é o novo nome da tarefa?");
+        console.log('nova descricao da tarefa :', novaDecricao);
+        if(novaDecricao != null && novaDecricao != ""){
+            paragrafo.textContent = novaDecricao;
+            tarefa.descricao = novaDecricao;
+            atualizarTarefas(); 
+        } else {
+            alert('voce informou uma descricao vazia, tente novamente')
+        }
+    }
     
+    const imagemBotao = document.createElement('img'); 
     imagemBotao.setAttribute('src', './imagens/edit.png');
     
     botao.append(imagemBotao);
-    botao.classList.add('app_button-edit');
     
     li.append(svg);
     li.append(paragrafo);
@@ -51,7 +68,7 @@ formAdicionarTarefa.addEventListener('submit', (evento)=>{
     tarefas.push(tarefa);
     const elementoTarefa = criarElementoTarefa(tarefa);
     ulTarefas.append(elementoTarefa);
-    localStorage.setItem('tarefas', JSON.stringify(tarefas));
+    atualizarTarefas(); 
     textArea.value = '';
     formAdicionarTarefa.classList.add('hidden');
 })
