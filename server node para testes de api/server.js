@@ -6,6 +6,7 @@ const app = express();
 const PORT = 3000;
 
 app.use(cors());
+app.use(express.json());
 
 // Lista de pensamentos
 const pensamentos = [
@@ -80,6 +81,33 @@ const pensamentos = [
 app.get("/pensamentos", (req, res) => {
     res.json(pensamentos);
 });
+
+// POST - Cadastrar novo pensamento
+app.post("/pensamentos", (req, res) => {
+
+    const { conteudo, autoria } = req.body;
+
+    // Validar os dados recebidos
+    if (!conteudo || !autoria) {
+        return res.status(400).json({
+            mensagem: "Conteúdo e autoria são obrigatórios."
+        });
+    }
+
+    // Criar novo pensamento
+    const novoPensamento = {
+        id: crypto.randomUUID(),
+        conteudo,
+        autoria
+    };
+
+    // Adicionar ao array
+    pensamentos.push(novoPensamento);
+
+    // Retornar o pensamento cadastrado
+    res.status(201).json(novoPensamento);
+});
+
 
 // Iniciar servidor
 app.listen(PORT, () => {
