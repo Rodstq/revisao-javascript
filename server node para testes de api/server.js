@@ -82,6 +82,19 @@ app.get("/pensamentos", (req, res) => {
     res.json(pensamentos);
 });
 
+// Único endpoint
+app.get("/pensamento/:id", (req, res) => {
+
+  const id = req.params.id;
+
+  const pensamento = pensamentos.find(p => p.id === id)
+
+  if(!pensamento){
+    throw console.error('Pensamento nao encontrado');
+  }
+    res.json(pensamento);
+});
+
 // POST - Cadastrar novo pensamento
 app.post("/pensamentos", (req, res) => {
 
@@ -106,6 +119,36 @@ app.post("/pensamentos", (req, res) => {
 
     // Retornar o pensamento cadastrado
     res.status(201).json(novoPensamento);
+});
+
+
+// PUT - Editar um pensamento existente
+app.put("/pensamento/:id", (req, res) => {
+    const id = req.params.id;
+    const { conteudo, autoria } = req.body;
+
+    // Buscar o pensamento pelo ID
+    const pensamento = pensamentos.find(p => p.id === id);
+
+    if (!pensamento) {
+        return res.status(404).json({
+            mensagem: "Pensamento não encontrado"
+        });
+    }
+
+    // Validar os dados recebidos
+    if (!conteudo || !autoria) {
+        return res.status(400).json({
+            mensagem: "Conteúdo e autoria são obrigatórios"
+        });
+    }
+
+    // Atualizar o pensamento existente
+    pensamento.conteudo = conteudo;
+    pensamento.autoria = autoria;
+
+    // Retornar o pensamento atualizado
+    return res.status(200).json(pensamento);
 });
 
 
