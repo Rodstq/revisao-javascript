@@ -83,7 +83,7 @@ app.get("/pensamentos", (req, res) => {
 });
 
 // Único endpoint
-app.get("/pensamento/:id", (req, res) => {
+app.get("/pensamentos/:id", (req, res) => {
 
   const id = req.params.id;
 
@@ -123,7 +123,7 @@ app.post("/pensamentos", (req, res) => {
 
 
 // PUT - Editar um pensamento existente
-app.put("/pensamento/:id", (req, res) => {
+app.put("/pensamentos/:id", (req, res) => {
     const id = req.params.id;
     const { conteudo, autoria } = req.body;
 
@@ -150,6 +150,27 @@ app.put("/pensamento/:id", (req, res) => {
     // Retornar o pensamento atualizado
     return res.status(200).json(pensamento);
 });
+
+
+app.delete("/pensamentos/:id", (req, res) =>{
+  const id = req.params.id
+
+  const index = pensamentos.findIndex(p => p.id === id)
+
+   if (index === -1) {
+        return res.status(404).json({
+            mensagem: "Pensamento não encontrado"
+        });
+    }
+
+    pensamentos.splice(index, 1);
+
+     // Retornar resposta de sucesso
+    return res.status(200).json({
+        mensagem: "Pensamento excluído com sucesso"
+    });
+
+})
 
 
 // Iniciar servidor

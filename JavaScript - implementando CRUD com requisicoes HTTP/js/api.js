@@ -1,7 +1,9 @@
+const URL_BASE = "http://localhost:3000/pensamentos"
+
 const api = {
     async buscarPensamentos() {
     try {
-        const response = await fetch('http://localhost:3000/pensamentos')
+        const response = await fetch(URL_BASE)
         const pensamentos = await response.json()
         return pensamentos;
     } catch (error) {
@@ -12,7 +14,7 @@ const api = {
 
     async buscarPensamentoPorId(id) {
     try {
-        const response = await fetch(`http://localhost:3000/pensamento/${id}`)
+        const response = await fetch(`${URL_BASE}/${id}`)
         const pensamento = await response.json()
         return pensamento;
     } catch (error) {
@@ -23,7 +25,7 @@ const api = {
 
     async salvarPensamentos(pensamento) {
     try {
-        const response = await fetch('http://localhost:3000/pensamentos', {
+        const response = await fetch(URL_BASE, {
             method: "POST",
             headers:{
                 "Content-type": "application/json"
@@ -40,7 +42,7 @@ const api = {
 
     async editarPensamentos(pensamento) {
     try {
-        const response = await fetch(`http://localhost:3000/pensamento/${pensamento.id}`, {
+        const response = await fetch(`${URL_BASE}/${pensamento.id}`, {
             method: "PUT",
             headers:{
                 "Content-type": "application/json"
@@ -55,6 +57,22 @@ const api = {
         return resultado;      
     } catch (error) {
         alert('Erro ao editar pensamentos')
+        throw error
+    }
+    },
+
+    async excluirPensamento(id) {
+    try {
+        const response = await fetch(`${URL_BASE}/${id}`, {
+            method: "DELETE",
+        })
+         console.log("Status HTTP:", response.status);
+
+        const resultado = await response.json();
+        console.log("Resposta da edição:", resultado);
+
+    } catch (error) {
+        alert('Erro ao excluir pensamentos')
         throw error
     }
     }
