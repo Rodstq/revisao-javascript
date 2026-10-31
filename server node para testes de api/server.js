@@ -153,7 +153,7 @@ app.post("/pensamentos", (req, res) => {
 // PUT - Editar um pensamento existente
 app.put("/pensamentos/:id", (req, res) => {
     const id = req.params.id;
-    const { conteudo, autoria } = req.body;
+    const { conteudo, autoria, data } = req.body;
 
     // Buscar o pensamento pelo ID
     const pensamento = pensamentos.find(p => p.id === id);
@@ -171,9 +171,10 @@ app.put("/pensamentos/:id", (req, res) => {
         });
     }
 
-    // Atualizar o pensamento existente
+     // Atualizar o pensamento existente
     pensamento.conteudo = conteudo;
     pensamento.autoria = autoria;
+    pensamento.data = new Date(data).toISOString();
 
     // Retornar o pensamento atualizado
     return res.status(200).json(pensamento);
