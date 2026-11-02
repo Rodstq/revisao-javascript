@@ -3,7 +3,8 @@
     "@eslint/js": "^10.0.1",
     "eslint": "^10.14.0",
     "globals": "^17.14.0",
-    "json-server": "^1.0.0-beta.15"
+    "json-server": "^1.0.0-beta.15",
+    "prettier": "3.9.10"
   },
   "name": "node.js-e-terminal---dominando-o-ambiente-de-desenvolvimento-front-end",
   "version": "1.0.0",
