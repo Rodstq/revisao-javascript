@@ -5,8 +5,12 @@ const containerVideos = document.querySelector(".videos__container");
 console.log("calopsita");
 
 async function buscarEMostrarVideos() {
+  const urlVideos = import.meta.env.PROD
+    ? "https://gist.githubusercontent.com/antonio-evaldo/e8a63621b51c883931eb3fa3a3eca990/raw/12f5c46ee6dd00d03c051adadaf341e06452cea0/videos.txt"
+    : "http://localhost:3000/";
+
   try {
-    const busca = await axios.get("http://localhost:3000/videos");
+    const busca = await axios.get(urlVideos);
     const videos = await busca.data;
 
     console.log(videos);
