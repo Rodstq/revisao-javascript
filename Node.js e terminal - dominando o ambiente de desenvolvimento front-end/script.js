@@ -1,11 +1,15 @@
+import axios from "axios";
+
 const containerVideos = document.querySelector(".videos__container");
 
 console.log("calopsita");
 
 async function buscarEMostrarVideos() {
   try {
-    const busca = await fetch("http://localhost:3000/videos");
-    const videos = await busca.json();
+    const busca = await axios.get("http://localhost:3000/videos");
+    const videos = await busca.data;
+
+    console.log(videos);
 
     videos.forEach((video) => {
       if (video.categoria == "") {
